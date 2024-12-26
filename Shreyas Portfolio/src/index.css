@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  cursor: none;
+  overflow-x: hidden;
+}
+
+a, button, input, textarea {
+  cursor: none;
+}
+
+.cursor-outer,
+.cursor-inner,
+.cursor-trail {
+  pointer-events: none;
+  will-change: transform;
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+html {
+  scroll-padding-top: 5rem; /* Adjusts scroll position to account for fixed navbar */
+  scroll-behavior: smooth;
+}
