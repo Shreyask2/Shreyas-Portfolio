@@ -1,0 +1,21 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Logs
+logs/
+*.log
+
+# Test and documentation files
+test/
+tests/
+coverage/
+*.md
+
+# Hidden system files
+.DS_Store
+.env
