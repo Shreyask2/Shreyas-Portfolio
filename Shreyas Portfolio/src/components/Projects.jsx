@@ -13,7 +13,7 @@ const Projects = () => {
       description: "This is my portfolio website, where I can showcase my projects and skills. I used React, JSX, and Tailwind CSS to create this website.",
       image: images.projects.mlProject1,
       tech: ["HTML","React", "JSX", "Tailwind CSS", "Node.js", "TypeScript"],
-      github: "https://github.com/yourusername/project1",
+      github: "https://github.com/Shreyask2/Shreyas-Portfolio",
       demo: "https://demo-url.com",
       highlights: [
         "Showcases my projects and skills",
@@ -34,11 +34,10 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="pt-32 h-screen flex flex-col">
+    <section id="projects" className="pt-16 h-screen flex flex-col">
       <div className="max-w-6xl mx-auto px-12 flex-1 flex flex-col">
-        {/* Section Header - More compact */}
         <motion.div 
-          className="text-center mb-8"
+          className="text-center mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
