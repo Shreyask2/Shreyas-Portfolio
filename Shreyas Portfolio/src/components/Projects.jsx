@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { FiGithub, FiExternalLink, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import images from '../constants/images';
+import { FaHtml5, FaReact, FaNodeJs, FaJs} from 'react-icons/fa';
+import { SiTailwindcss, SiTypescript, SiFramer} from 'react-icons/si';
 
 const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -12,7 +14,7 @@ const Projects = () => {
       title: "Portfolio Website",
       description: "This is my portfolio website, where I can showcase my projects and skills. I used React, JSX, and Tailwind CSS to create this website.",
       image: images.projects.mlProject1,
-      tech: ["HTML","React", "JSX", "Tailwind CSS", "Node.js", "TypeScript"],
+      tech: ["HTML","React", "JavaScript", "Tailwind CSS", "Node.js", "TypeScript", "Framer Motion"],
       github: "https://github.com/Shreyask2/Shreyas-Portfolio",
       demo: "https://demo-url.com",
       highlights: [
@@ -24,6 +26,16 @@ const Projects = () => {
     },
     // Add more projects...
   ];
+
+  const techIcons = {
+    HTML: <FaHtml5 className="text-orange-500" />,
+    React: <FaReact className="text-blue-500" />,
+    JavaScript: <FaJs className="text-yellow-500" />,
+    "Tailwind CSS": <SiTailwindcss className="text-teal-500" />,
+    "Node.js": <FaNodeJs className="text-green-500" />,
+    "TypeScript": <SiTypescript className="text-blue-500" />,
+    "Framer Motion": <SiFramer className="text-purple-500" />,
+  };
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? projects.length - 1 : prev - 1));
@@ -53,7 +65,7 @@ const Projects = () => {
         {/* Project Showcase - Now with flex-1 to take remaining space */}
         <div className="relative flex-1 flex flex-col">
           {/* Navigation Arrows */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
+        {/*  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
             <motion.button
               className="pointer-events-auto p-2 rounded-full bg-gray-900/50 backdrop-blur-sm border border-gray-700/30 hover:bg-gray-800/50 transition-colors"
               whileHover={{ scale: 1.1 }}
@@ -70,7 +82,7 @@ const Projects = () => {
             >
               <FiChevronRight className="text-xl text-gray-300" />
             </motion.button>
-          </div>
+          </div> */}
 
           {/* Project Card - Now with flex-1 and overflow handling */}
           <AnimatePresence mode="wait">
@@ -118,7 +130,8 @@ const Projects = () => {
                         transition={{ delay: index * 0.05 }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        <span className="text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors">
+                        {techIcons[tech]}
+                        <span className="text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors ml-2">
                           {tech}
                         </span>
                       </motion.div>
@@ -172,7 +185,7 @@ const Projects = () => {
                       whileTap={{ scale: 0.98 }}
                     >
                       <FiExternalLink className="text-lg" />
-                      <span>Live Demo</span>
+                      <span>Project Link</span>
                     </motion.a>
                   </div>
                 </div>

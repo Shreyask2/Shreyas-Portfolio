@@ -14,9 +14,10 @@ import {
   FaGithub,
   FaFigma,
   FaAndroid,
-  FaUnity
+  FaUnity,
+  FaJs
 } from 'react-icons/fa';
-import { SiTypescript, SiTailwindcss, SiFlutter, SiGodotengine } from "react-icons/si";
+import { SiTypescript, SiTailwindcss, SiFlutter, SiFramer } from "react-icons/si";
 
 const About = () => {
   useEffect(() => {
@@ -31,18 +32,18 @@ const About = () => {
 
   // Skills carousel setup
   const skills = [
-    { name: "Python", icon: <FaPython /> },
-    { name: "React.js", icon: <FaReact /> },
-    { name: "Node.js", icon: <FaNodeJs /> },
-    { name: "TypeScript", icon: <SiTypescript /> },
-    { name: "JSX", icon: <FaReact /> },
-    { name: "HTML", icon: <FaHtml5 /> },
-    { name: "CSS", icon: <FaCss3 /> },
-    { name: "Java", icon: <FaJava /> },
-    { name: "GitHub", icon: <FaGithub /> },
-    { name: "Tailwind", icon: <SiTailwindcss /> },
-    { name: "Flutter", icon: <SiFlutter /> },
-    { name: "Godot", icon: <SiGodotengine /> },
+    { name: "Python", icon: <FaPython />, color: "#4B8BBE", textColor: "#ffffff" },
+    { name: "React.js", icon: <FaReact />, color: "#61DAFB", textColor: "#282c34" },
+    { name: "Node.js", icon: <FaNodeJs />, color: "#68A063", textColor: "#ffffff" },
+    { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6", textColor: "#ffffff" },
+    { name: "JavaScript", icon: <FaJs />, color: "#F0DB4F", textColor: "#282c34" },
+    { name: "HTML", icon: <FaHtml5 />, color: "#E34C26", textColor: "#ffffff" },
+    { name: "CSS", icon: <FaCss3 />, color: "#264de4", textColor: "#ffffff" },
+    { name: "Java", icon: <FaJava />, color: "#5382A1", textColor: "#ffffff" },
+    { name: "GitHub", icon: <FaGithub />, color: "#333333", textColor: "#ffffff" },
+    { name: "Tailwind", icon: <SiTailwindcss />, color: "#38B2AC", textColor: "#282c34" },
+    { name: "Flutter", icon: <SiFlutter />, color: "#02569B", textColor: "#ffffff" },
+    { name: "Framer Motion", icon: <SiFramer />, color: "#000000", textColor: "#ffffff" },
   ];
   const duplicatedSkills = [...skills, ...skills];
   const [isHovered, setIsHovered] = useState(false);
@@ -125,7 +126,7 @@ const About = () => {
         {/* Featured Section */}
         <Featured />
 
-        {/* Skills Carousel */}
+        {/* Skills Section */}
         <motion.div 
           className="mb-16"
           initial={{ opacity: 0 }}
@@ -133,25 +134,19 @@ const About = () => {
           transition={{ delay: 0.4 }}
         >
           <SectionHeading>Technical Skills</SectionHeading>
-          <div 
-            ref={containerRef}
-            className="overflow-hidden whitespace-nowrap cursor-grab active:cursor-grabbing"
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseUp}
-          >
-            <div className="inline-flex gap-4 py-4">
-              {duplicatedSkills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="px-6 py-2 bg-gray-800/50 rounded-full border border-blue-500/20 backdrop-blur-sm select-none flex items-center gap-2"
-                >
-                  <span className="text-gray-300 whitespace-nowrap">{skill.name}</span>
-                  <span className="text-gray-300">{skill.icon}</span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {skills.map((skill, index) => (
+              <motion.div
+                key={index}
+                className="p-6 rounded-lg border border-gray-300/20 backdrop-blur-lg flex flex-col items-center justify-center"
+                style={{ backgroundColor: skill.color, color: skill.textColor }}
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <span className="text-4xl mb-2">{skill.icon}</span>
+                <span className="text-xl font-semibold">{skill.name}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 

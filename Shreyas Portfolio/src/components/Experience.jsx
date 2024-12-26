@@ -34,7 +34,7 @@ const Experience = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 mb-4">
-            Experience & Achievements
+            Experiences & Achievements
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             A timeline of my academic and professional journey in technology and research
