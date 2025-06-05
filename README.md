@@ -12,29 +12,6 @@ Shreyas Portfolio is a personal portfolio website showcasing my projects and ski
 - [License](#license)
 - [Contact](#contact)
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Shreyask2/Shreyas-Portfolio.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd Shreyas-Portfolio
-   ```
-3. Install the dependencies:
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-To start the development server, run:
-bash
-npm start
-
-Then open your browser and go to `http://localhost:3000`.
-
 ## Features
 
 - Showcases projects and skills
