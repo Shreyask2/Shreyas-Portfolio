@@ -24,7 +24,7 @@ const experiences = [
   {
     title: "Tech Intern @ Rove (YC W24)",
     organization: "Harvard Undergraduate Ventures",
-    location: "Massachusetts, MA",
+    location: "Cambridge, MA",
     date: "June 2025 - August 2025",
     points: [
       "Developed data pipelines and algorithms using Python and REST APIs to analyze airfares, identify cost-saving synthetic routing opportunities, and build a recommendation engine for optimizing travel rewards across flights, hotels, and points.",
