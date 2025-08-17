@@ -5,6 +5,7 @@ import mlProject3 from '../assets/images/image3.png';
 import mlProject4 from '../assets/images/image4.png';
 import mlProject5 from '../assets/images/image5.png';
 import mlProject6 from '../assets/images/image6.png';
+import mlProject2 from '../assets/images/image10.png';
 export default {
   projects: {
     mlProject1,
@@ -12,6 +13,7 @@ export default {
     mlProject3,
     mlProject4,
     mlProject5,
-    mlProject6
+    mlProject6,
+    mlProject2
   },
 }; 

@@ -13,10 +13,10 @@ const Projects = () => {
     {
       title: "Portfolio Website",
       description: "This is my portfolio website, where I can showcase my projects and skills. I used React, JSX, and Tailwind CSS to create this website.",
-      image: images.projects.mlProject1,
+      image: images.projects.mlProject2,
       tech: ["HTML","React", "JavaScript", "Tailwind CSS", "Node.js", "TypeScript", "Framer Motion"],
       github: "https://github.com/Shreyask2/Shreyas-Portfolio",
-      demo: "https://shreyaskorithiwada.netlify.app/",
+      demo: "https://skorithiwada.vercel.app/",
       highlights: [
         "Showcases my projects and skills",
         "Responsive design",
@@ -44,13 +44,13 @@ const Projects = () => {
 
   const techIcons = {
     HTML: <FaHtml5 className="text-orange-500" />,
-    React: <FaReact className="text-blue-500" />,
+    React: <FaReact className="text-sky-400" />,
     JavaScript: <FaJs className="text-yellow-500" />,
-    "Tailwind CSS": <SiTailwindcss className="text-teal-500" />,
+    "Tailwind CSS": <SiTailwindcss className="text-sky-400" />,
     "Node.js": <FaNodeJs className="text-green-500" />,
     "TypeScript": <SiTypescript className="text-blue-500" />,
-    "Framer Motion": <SiFramer className="text-purple-500" />,
-    "Godot": <SiGodotengine className="text-blue-300" />,
+    "Framer Motion": <SiFramer className="text-blue-400" />,
+    "Godot": <SiGodotengine className="text-sky-300" />,
     "Aseprite": <SiAseprite className="text-orange-500" />,
     "GitHub": <SiGithub className="text-white-500" />,
     "Git": <SiGit className="text-red-500" />,
@@ -73,7 +73,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 mb-2">
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-sky-400 mb-2">
             Featured Projects
           </h2>
           <p className="text-gray-400 text-sm">
@@ -84,7 +84,7 @@ const Projects = () => {
         {/* Project Showcase - Now with flex-1 to take remaining space */}
         <div className="relative flex-1 flex flex-col">
           {/* Navigation Arrows */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
+          <div className="absolute inset-x-[-1rem] md:inset-x-[-3.5rem] top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
             <motion.button
               className="pointer-events-auto p-2 rounded-full bg-gray-900/50 backdrop-blur-sm border border-gray-700/30 hover:bg-gray-800/50 transition-colors"
               whileHover={{ scale: 1.1 }}
@@ -119,7 +119,9 @@ const Projects = () => {
               onHoverStart={() => setIsHovered(true)}
               onHoverEnd={() => setIsHovered(false)}
             >
-              <div className="bg-gray-900/40 rounded-2xl overflow-hidden border border-gray-800/50 backdrop-blur-sm w-full flex flex-col">
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-sky-500 rounded-2xl blur opacity-0 group-hover:opacity-75 transition duration-1000"></div>
+                <div className="relative bg-gray-900/40 rounded-2xl overflow-hidden border border-gray-800/50 backdrop-blur-sm w-full flex flex-col">
                 {/* Project Image */}
                 <div className="relative h-[35vh] overflow-hidden">
                   <motion.img 
@@ -152,7 +154,7 @@ const Projects = () => {
                         {techIcons[tech] && (
                           <span className="mr-2">{techIcons[tech]}</span>
                         )}
-                        <span className="text-xs sm:text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors">
+                        <span className="text-xs sm:text-sm font-medium text-sky-400 group-hover:text-sky-300 transition-colors">
                           {tech}
                         </span>
                       </motion.div>
@@ -210,6 +212,7 @@ const Projects = () => {
                     </motion.a>
                   </div>
                 </div>
+              </div>
               </div>
             </motion.div>
           </AnimatePresence>

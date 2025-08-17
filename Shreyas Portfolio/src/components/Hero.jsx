@@ -9,7 +9,15 @@ const Hero = () => {
 
   const handleNavigation = (sectionId) => {
     const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      const navbarHeight = 80; // Adjust if your navbar height is different
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
@@ -60,7 +68,7 @@ const Hero = () => {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#3B82F6';
+        ctx.fillStyle = '#38bdf8';
         ctx.fill();
       }
     }
@@ -78,6 +86,7 @@ const Hero = () => {
         particle.update();
         particle.draw();
 
+        // Draw connections
         particles.forEach(otherParticle => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
@@ -87,7 +96,7 @@ const Hero = () => {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(59, 130, 246, ${1 - distance / connectionDistance})`;
+            ctx.strokeStyle = `rgba(56, 189, 248, ${1 - distance / connectionDistance})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -97,6 +106,7 @@ const Hero = () => {
       requestAnimationFrame(animate);
     };
 
+    // Track mouse movement
     const handleMouseMove = (e) => {
       mousePosition.x = e.clientX;
       mousePosition.y = e.clientY;
@@ -105,6 +115,7 @@ const Hero = () => {
     canvas.addEventListener('mousemove', handleMouseMove);
     animate();
 
+    // Cleanup
     return () => {
       window.removeEventListener('resize', setCanvasSize);
       canvas.removeEventListener('mousemove', handleMouseMove);
@@ -112,7 +123,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div id="hero" className="h-screen flex items-center justify-center relative overflow-hidden">
+    <div id="hero" className="h-screen flex items-center justify-center relative overflow-hidden bg-[#0B192C]">
       {/* Particle Canvas */}
       <canvas
         ref={canvasRef}
@@ -129,7 +140,7 @@ const Hero = () => {
           {/* Background Animation Elements */}
           <div className="absolute inset-0 -z-10">
             <motion.div
-              className="absolute top-20 left-[20%] w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"
+              className="absolute top-20 left-[20%] w-72 h-72 bg-blue-600/10 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],
@@ -141,7 +152,7 @@ const Hero = () => {
               }}
             />
             <motion.div
-              className="absolute bottom-20 right-[20%] w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+              className="absolute bottom-20 right-[20%] w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"
               animate={{
                 scale: [1.2, 1, 1.2],
                 opacity: [0.4, 0.6, 0.4],
@@ -166,8 +177,6 @@ const Hero = () => {
                 className="w-full h-full rounded-full"
               />
             </div>
-          </motion.div>
-
             {/* Decorative circles */}
             <motion.div
               className="absolute -inset-2 border-2 border-blue-500/20 rounded-full"
@@ -178,11 +187,11 @@ const Hero = () => {
                 ease: "linear"
               }}
             />
-          
+          </motion.div>
 
           {/* Text Content */}
           <motion.h1 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-sky-400"
             whileHover={{ scale: 1.05 }}
           >
             <ReactTypingEffect
@@ -201,7 +210,7 @@ const Hero = () => {
             transition={{ delay: 0.5 }}
           >
             <ReactTypingEffect
-              text={['High School Student | Aspiring Computer Engineer']}
+              text={['High School Student | Aspiring Artificial Intelligence Engineer']}
               speed={100}
               eraseDelay={10000000000000}
               typingDelay={500}
@@ -209,31 +218,7 @@ const Hero = () => {
             />
           </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            <motion.button 
-              onClick={() => handleNavigation('contact')}
-              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full font-semibold hover:opacity-90 transition-opacity"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get In Touch
-            </motion.button>
-            <motion.button 
-              onClick={() => handleNavigation('projects')}
-              className="w-full sm:w-auto px-6 py-2 border border-blue-500/30 rounded-full font-semibold hover:bg-blue-500/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View My Work
-            </motion.button>
-          </motion.div>
-
+          
           {/* Scroll Indicator - Centered between buttons */}
           <motion.div 
             className="flex justify-center"

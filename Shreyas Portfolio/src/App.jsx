@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import About from './pages/About';
 import Experience from './components/Experience';
-// import Projects from './components/Projects'; // Temporarily disabled
+import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
@@ -35,15 +35,21 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="relative bg-[#0B0B0F] text-white min-h-screen flex flex-col">
+      <div className="relative bg-[#0B192C] text-white min-h-screen flex flex-col">
         <Cursor cursorVariant={cursorVariant} />
         <Navbar setCursorVariant={setCursorVariant} />
         <div className="flex-grow">
-          <Hero setCursorVariant={setCursorVariant} />
-          <About setCursorVariant={setCursorVariant} />
-          <Experience setCursorVariant={setCursorVariant} />
-          {/*<Projects setCursorVariant={setCursorVariant} />*/}
-          <Contact setCursorVariant={setCursorVariant} />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero setCursorVariant={setCursorVariant} />
+                <Experience />
+                <Projects />
+                <Contact />
+              </>
+            } />
+            <Route path="/about" element={<About />} />
+                      </Routes>
         </div>
         <Footer />
       </div>

@@ -7,10 +7,10 @@ const Contact = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <section id="contact" className="py-16 px-4 bg-[#0B0B0F]">
+    <section id="contact" className="py-16 px-4 bg-[#0B192C]">
       <div className="max-w-6xl mx-auto">
         <motion.h1 
-          className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text"
+          className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-blue-500 to-sky-400 text-transparent bg-clip-text"
         >
           Get In Touch
         </motion.h1>
@@ -20,11 +20,11 @@ const Contact = () => {
 
         <div className="max-w-2xl mx-auto">
           <div className="bg-gray-900/50 backdrop-blur-sm p-4 sm:p-6 rounded-2xl border border-gray-800 mb-8">
-            <h2 className="text-xl sm:text-2xl font-semibold text-blue-400 mb-6">Contact Information</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold text-sky-400 mb-6">Contact Information</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <motion.span 
-                  className="text-blue-400"
+                  className="text-sky-400"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
@@ -39,7 +39,7 @@ const Contact = () => {
               </div>
               <div className="flex items-center gap-3">
                 <motion.span 
-                  className="text-blue-400"
+                  className="text-sky-400"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >
@@ -54,7 +54,7 @@ const Contact = () => {
               </div>
               <div className="flex items-center gap-3">
                 <motion.span 
-                  className="text-blue-400"
+                  className="text-sky-400"
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   transition={{ type: 'spring', stiffness: 300 }}
                 >

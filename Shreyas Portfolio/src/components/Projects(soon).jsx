@@ -42,7 +42,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 mb-2">
+          <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-sky-400 mb-2">
             Featured Projects
           </h2>
           <p className="text-gray-400 text-sm">
@@ -118,7 +118,7 @@ const Projects = () => {
                         transition={{ delay: index * 0.05 }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        <span className="text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors">
+                        <span className="text-sm font-medium text-sky-400 group-hover:text-sky-300 transition-colors">
                           {tech}
                         </span>
                       </motion.div>

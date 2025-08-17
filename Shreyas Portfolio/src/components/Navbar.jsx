@@ -4,13 +4,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { FiMenu, FiX } from "react-icons/fi"
-import logoImage from "../assets/images/image6.png" // Replace with your actual logo path
+import Logo from "./Logo"
 
 const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [activeSection, setActiveSection] = useState("hero")
   const [isNavOpen, setIsNavOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
     left: 0,
@@ -18,6 +19,16 @@ const Navbar = () => {
     height: 0,
     opacity: 0,
   })
+
+  // Handle navbar style on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Initial check
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   // Reset indicator when navigating to About page
   useEffect(() => {
@@ -160,19 +171,22 @@ const Navbar = () => {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-40 bg-gray-900/50 backdrop-blur-md border-b border-gray-800/50"
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0B192C]/80 backdrop-blur-xl border-b border-blue-900/50"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
-      <div className="max-w-6xl mx-auto px-4 py-4">
+      <div
+        className={`max-w-6xl mx-auto px-4 transition-all duration-300 ${
+          scrolled ? "py-3" : "py-4"
+        }`}
+      >
         <div className="flex justify-between items-center">
           {/* Logo */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center">
             <Link to="/" onClick={handleHomeClick}>
-              <img
-                src={logoImage || "/placeholder.svg"}
-                alt="Logo"
-                className="h-10 w-auto"
-                style={{ maxHeight: "40px" }}
-              />
+              <Logo size={40} />
             </Link>
           </motion.div>
 
@@ -214,21 +228,21 @@ const Navbar = () => {
                 }}
                 className={`block w-full sm:w-auto text-left py-2 px-4 rounded-lg transition-all duration-300 ${
                   location.pathname === "/about"
-                    ? "text-blue-400 bg-blue-500/10"
-                    : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/5"
+                    ? "text-blue-300 bg-blue-500/20"
+                    : "text-gray-300 hover:text-blue-300 hover:bg-blue-500/10"
                 }`}
               >
                 About
               </Link>
-              {["experience", "projects", "contact"].map((item) => (
+              {['experience', 'projects', 'contact'].map((item) => (
                 <motion.button
                   key={item}
                   data-section={item}
                   onClick={() => handleNavigation(item)}
                   className={`block w-full sm:w-auto text-left py-2 px-4 rounded-lg transition-all duration-300 ${
                     activeSection === item && location.pathname === "/"
-                      ? "text-blue-400 bg-blue-500/10"
-                      : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/5"
+                      ? "text-blue-300 bg-blue-500/20"
+                      : "text-gray-300 hover:text-blue-300 hover:bg-blue-500/10"
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -242,8 +256,8 @@ const Navbar = () => {
                 <motion.div
                   className="absolute rounded-lg hidden sm:block"
                   style={{
-                    background: "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2))",
-                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.15)",
+                    background: "linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(56, 189, 248, 0.2))",
+                    boxShadow: "0 0 20px rgba(56, 189, 248, 0.15)",
                     backdropFilter: "blur(4px)",
                   }}
                   initial={false}
