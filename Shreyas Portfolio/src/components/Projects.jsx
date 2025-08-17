@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FiGithub, FiExternalLink, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import images from '../constants/images';
 import { FaHtml5, FaReact, FaNodeJs, FaJs} from 'react-icons/fa';
-import { SiTailwindcss, SiTypescript, SiFramer} from 'react-icons/si';
+import { SiTailwindcss, SiTypescript, SiFramer, SiGodotengine, SiAseprite, SiGithub, SiGit} from 'react-icons/si';
 
 const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,12 +16,27 @@ const Projects = () => {
       image: images.projects.mlProject1,
       tech: ["HTML","React", "JavaScript", "Tailwind CSS", "Node.js", "TypeScript", "Framer Motion"],
       github: "https://github.com/Shreyask2/Shreyas-Portfolio",
-      demo: "https://demo-url.com",
+      demo: "https://shreyaskorithiwada.netlify.app/",
       highlights: [
         "Showcases my projects and skills",
         "Responsive design",
         "Interactive elements",
         "Modern UI/UX",
+      ]
+    },
+
+    {
+      title: "TowerFall",
+      description: "A fun topdown adventure game with progressive ability selection created for a tech competetion along with peers! The target audience for our game would mainly include action game enthusiasts above the age of 8 with a minor amount of gaming experience.",
+      image: images.projects.mlProject5,
+      tech: ["Godot", "Aseprite", "GitHub", "Git"],
+      github: "https://github.com/Shreyask2/TowerFall",
+      demo: "https://polishcow13.itch.io/towerfall",
+      highlights: [
+        "Progressive ability selection",
+        "Randomized Room Generation",
+        "Fun gameplay",
+        "Mythical characters",
       ]
     },
     // Add more projects...
@@ -35,6 +50,10 @@ const Projects = () => {
     "Node.js": <FaNodeJs className="text-green-500" />,
     "TypeScript": <SiTypescript className="text-blue-500" />,
     "Framer Motion": <SiFramer className="text-purple-500" />,
+    "Godot": <SiGodotengine className="text-blue-300" />,
+    "Aseprite": <SiAseprite className="text-orange-500" />,
+    "GitHub": <SiGithub className="text-white-500" />,
+    "Git": <SiGit className="text-red-500" />,
   };
 
   const handlePrevious = () => {
@@ -46,8 +65,8 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="pt-16 h-screen flex flex-col">
-      <div className="max-w-6xl mx-auto px-12 flex-1 flex flex-col">
+    <section id="projects" className="py-16 px-4">
+      <div className="max-w-6xl mx-auto">
         <motion.div 
           className="text-center mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -58,14 +77,14 @@ const Projects = () => {
             Featured Projects
           </h2>
           <p className="text-gray-400 text-sm">
-            Explore some of my recent work in AI and machine learning
+            Explore some of my recent works!
           </p>
         </motion.div>
 
         {/* Project Showcase - Now with flex-1 to take remaining space */}
         <div className="relative flex-1 flex flex-col">
           {/* Navigation Arrows */}
-        {/*  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-10">
             <motion.button
               className="pointer-events-auto p-2 rounded-full bg-gray-900/50 backdrop-blur-sm border border-gray-700/30 hover:bg-gray-800/50 transition-colors"
               whileHover={{ scale: 1.1 }}
@@ -82,7 +101,7 @@ const Projects = () => {
             >
               <FiChevronRight className="text-xl text-gray-300" />
             </motion.button>
-          </div> */}
+          </div>
 
           {/* Project Card - Now with flex-1 and overflow handling */}
           <AnimatePresence mode="wait">
@@ -96,7 +115,7 @@ const Projects = () => {
               }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.3 }}
-              className="relative flex-1 flex"
+              className="relative flex-1 flex flex-col"
               onHoverStart={() => setIsHovered(true)}
               onHoverEnd={() => setIsHovered(false)}
             >
@@ -130,8 +149,10 @@ const Projects = () => {
                         transition={{ delay: index * 0.05 }}
                         whileHover={{ scale: 1.02 }}
                       >
-                        {techIcons[tech]}
-                        <span className="text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors ml-2">
+                        {techIcons[tech] && (
+                          <span className="mr-2">{techIcons[tech]}</span>
+                        )}
+                        <span className="text-xs sm:text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors">
                           {tech}
                         </span>
                       </motion.div>
@@ -164,12 +185,12 @@ const Projects = () => {
                   </div>
 
                   {/* Action Buttons - Centered */}
-                  <div className="flex gap-3 justify-center">
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <motion.a 
                       href={projects[currentIndex].github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 text-sm bg-gray-800/80 rounded-lg hover:bg-gray-700/80 transition-all border border-gray-700/50"
+                      className="flex items-center justify-center gap-2 px-4 py-2 text-sm bg-gray-800/80 rounded-lg hover:bg-gray-700/80 transition-all border border-gray-700/50"
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -180,7 +201,7 @@ const Projects = () => {
                       href={projects[currentIndex].demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
+                      className="flex items-center justify-center gap-2 px-4 py-2 text-sm bg-blue-600 rounded-lg hover:bg-blue-700 transition-all"
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -215,4 +236,5 @@ const Projects = () => {
   );
 };
 
-export default Projects; 
+export default Projects;
+

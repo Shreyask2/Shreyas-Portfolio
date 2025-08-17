@@ -120,7 +120,7 @@ const Hero = () => {
       />
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,16 +156,17 @@ const Hero = () => {
 
           {/* Profile Image */}
           <motion.div
-            className="mb-8 relative inline-block"
+            className="mb-6 relative inline-block"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="w-40 h-32 md:w-48 md:h-44 rounded-full overflow-hidden border-4 border-blue-500/30 p-1">
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-blue-500/30 p-1">
               <img
                 src="https://cdn.dribbble.com/users/9453/screenshots/1681798/media/ec071c14237decb69b6e4960a61d574b.gif"
                 alt="Animated Logo"
                 className="w-full h-full rounded-full"
               />
             </div>
+          </motion.div>
 
             {/* Decorative circles */}
             <motion.div
@@ -177,11 +178,11 @@ const Hero = () => {
                 ease: "linear"
               }}
             />
-          </motion.div>
+          
 
           {/* Text Content */}
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
             whileHover={{ scale: 1.05 }}
           >
             <ReactTypingEffect
@@ -194,7 +195,7 @@ const Hero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-lg md:text-xl text-gray-400 mb-8"
+            className="text-base md:text-lg text-gray-400 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -210,14 +211,14 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col md:flex-row gap-4 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
             <motion.button 
               onClick={() => handleNavigation('contact')}
-              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full font-semibold hover:opacity-90 transition-opacity"
+              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full font-semibold hover:opacity-90 transition-opacity"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -225,7 +226,7 @@ const Hero = () => {
             </motion.button>
             <motion.button 
               onClick={() => handleNavigation('projects')}
-              className="px-8 py-3 border border-blue-500/30 rounded-full font-semibold hover:bg-blue-500/10 transition-colors"
+              className="w-full sm:w-auto px-6 py-2 border border-blue-500/30 rounded-full font-semibold hover:bg-blue-500/10 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -262,3 +263,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

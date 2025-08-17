@@ -3,16 +3,16 @@ import { FiAward, FiCalendar, FiMapPin } from 'react-icons/fi';
 
 const experiences = [
   {
-    title: "11th Grade Student",
+    title: "12th Grade Student",
     organization: "The Hill School",
     location: "Pottstown, PA",
     date: "2022 - Present",
     category: "Education",
     points: [
+      "Math Fellow",
+      "Varsity Tennis",
       "Technology Student Association (TSA)",
       "Deca",
-      "Math Fellow",
-      "Tennis",
       "Squash",
 
 
@@ -25,7 +25,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="pt-32 pb-20 px-4">
+    <section id="experience" className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.div 
           className="text-center mb-16"
@@ -53,10 +53,16 @@ const Experience = () => {
             >
               {/* Card */}
               <motion.div
-                className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-8 border border-gray-800/50 relative z-10"
+                className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-6 sm:p-8 border border-gray-800/50 relative z-10 overflow-hidden"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2 }}
               >
+                {/* Decorative elements */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-50" />
+                <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 opacity-50" />
+                <div className="absolute bottom-0 right-0 w-full h-1 bg-gradient-to-l from-blue-500 to-purple-500 opacity-50" />
+                <div className="absolute bottom-0 left-0 w-1 h-full bg-gradient-to-t from-blue-500 to-purple-500 opacity-50" />
+
                 {/* Header */}
                 <div className="flex flex-wrap gap-4 items-start justify-between mb-6">
                   <div>
@@ -112,11 +118,12 @@ const Experience = () => {
                     {exp.skills.map((skill, i) => (
                       <motion.span
                         key={skill}
-                        className="px-3 py-1 text-sm bg-gray-800/50 rounded-full border border-gray-700/50 text-gray-300"
+                        className="px-3 py-1 text-xs sm:text-sm bg-gray-800/50 rounded-full border border-gray-700/50 text-gray-300"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3 + (i * 0.1) }}
                         viewport={{ once: true }}
+                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(59, 130, 246, 0.2)' }}
                       >
                         {skill}
                       </motion.span>
@@ -135,4 +142,5 @@ const Experience = () => {
   );
 }
 
-export default Experience; 
+export default Experience;
+

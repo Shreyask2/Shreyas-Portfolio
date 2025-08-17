@@ -1,295 +1,272 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import Logo from './Logo';
-import { useState, useEffect } from 'react';
+"use client"
+
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
+import { FiMenu, FiX } from "react-icons/fi"
+import logoImage from "../assets/images/image6.png" // Replace with your actual logo path
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [activeSection, setActiveSection] = useState('hero');
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [activeSection, setActiveSection] = useState("hero")
+  const [isNavOpen, setIsNavOpen] = useState(false)
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
     left: 0,
     top: 0,
     height: 0,
-    opacity: 0
-  });
+    opacity: 0,
+  })
+
+  // Reset indicator when navigating to About page
+  useEffect(() => {
+    if (location.pathname === "/about") {
+      setIndicatorStyle({
+        width: 0,
+        left: 0,
+        top: 0,
+        height: 0,
+        opacity: 0,
+      })
+      setActiveSection("")
+    }
+  }, [location.pathname])
 
   // Update active section based on scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (location.pathname !== '/') return;
+      if (location.pathname !== "/") return
 
-      const sections = ['hero', 'experience', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const sections = ["hero", "experience", "projects", "contact"]
+      const scrollPosition = window.scrollY + window.innerHeight / 3
 
       for (const section of sections) {
-        const element = document.getElementById(section);
-        if (!element) continue;
+        const element = document.getElementById(section)
+        if (!element) continue
 
-        const rect = element.getBoundingClientRect();
-        const absoluteTop = window.scrollY + rect.top;
-        const absoluteBottom = absoluteTop + rect.height;
-
-        if (section === 'hero' && scrollPosition < window.innerHeight) {
-          setActiveSection('hero');
-          return;
-        }
+        const rect = element.getBoundingClientRect()
+        const absoluteTop = window.scrollY + rect.top
+        const absoluteBottom = absoluteTop + rect.height
 
         if (scrollPosition >= absoluteTop && scrollPosition <= absoluteBottom) {
-          setActiveSection(section);
-          return;
+          setActiveSection(section)
+          updateIndicator(section)
+          return
         }
       }
-    };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+      // Special case for hero section when at the top
+      if (window.scrollY < window.innerHeight / 2) {
+        setActiveSection("hero")
+        updateIndicator("hero")
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Initial check
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [location.pathname])
+
+  // Update indicator position
+  const updateIndicator = (sectionId) => {
+    if (location.pathname !== "/") {
+      setIndicatorStyle({
+        width: 0,
+        left: 0,
+        top: 0,
+        height: 0,
+        opacity: 0,
+      })
+      return
+    }
+
+    const button = document.querySelector(`[data-section="${sectionId}"]`)
+    if (!button) {
+      setIndicatorStyle({
+        width: 0,
+        left: 0,
+        top: 0,
+        height: 0,
+        opacity: 0,
+      })
+      return
+    }
+
+    const rect = button.getBoundingClientRect()
+    const navRect = button.closest(".nav-items")?.getBoundingClientRect()
+
+    if (navRect) {
+      setIndicatorStyle({
+        width: rect.width,
+        height: rect.height,
+        left: rect.left - navRect.left,
+        top: rect.top - navRect.top,
+        opacity: 1,
+      })
+    }
+  }
 
   // Handle navigation
   const handleNavigation = (sectionId) => {
-    if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: sectionId } });
+    if (location.pathname === "/about") {
+      navigate("/")
+      setTimeout(() => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const navbarHeight = 80
+          const elementPosition = element.getBoundingClientRect().top
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          })
+        }
+      }, 100)
     } else {
-      const element = document.getElementById(sectionId);
+      const element = document.getElementById(sectionId)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-        setActiveSection(sectionId);
+        const navbarHeight = 80
+        const elementPosition = element.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        })
       }
     }
-  };
+    setActiveSection(sectionId)
+    setIsNavOpen(false)
+  }
 
   // Handle home click
   const handleHomeClick = () => {
-    if (location.pathname !== '/') {
-      navigate('/');
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (location.pathname === "/about") {
+      navigate("/")
     }
-    setActiveSection('hero');
-  };
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+    setActiveSection("hero")
+    setIsNavOpen(false)
+  }
 
-  // Check for stored scroll position after navigation
-  useEffect(() => {
-    if (location.pathname === '/' && location.state?.scrollTo) {
-      const element = document.getElementById(location.state.scrollTo);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
-          setActiveSection(location.state.scrollTo);
-        }, 100);
-      }
-    }
-  }, [location]);
-
-  // Update indicator position based on active section
-  useEffect(() => {
-    let targetButton;
-    
-    // Don't calculate indicator position if we're in hero section
-    if (activeSection === 'hero' && location.pathname === '/') {
-      setIndicatorStyle({
-        width: 0,
-        height: 0,
-        left: 0,
-        top: 0,
-        opacity: 0
-      });
-      return;
-    }
-    
-    if (location.pathname === '/') {
-      targetButton = document.querySelector(`.nav-items button[data-section="${activeSection}"]`);
-    } else if (location.pathname === '/about') {
-      targetButton = document.querySelector('.nav-items a[data-section="about"]');
-    }
-
-    if (targetButton) {
-      const buttonRect = targetButton.getBoundingClientRect();
-      const navRect = targetButton.closest('.nav-items').getBoundingClientRect();
-      
-      setIndicatorStyle({
-        width: buttonRect.width,
-        height: buttonRect.height,
-        left: buttonRect.left - navRect.left,
-        top: 0,
-        opacity: 1
-      });
-    }
-  }, [activeSection, location.pathname]);
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen)
+  }
 
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-0 left-0 right-0 z-40 bg-gray-900/50 backdrop-blur-md border-b border-gray-800/50 overflow-hidden"
+      className="fixed top-0 left-0 right-0 z-40 bg-gray-900/50 backdrop-blur-md border-b border-gray-800/50"
     >
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0">
-        {/* Hexagon Grid Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="relative w-full h-full">
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute left-1/2 top-1/2 w-12 h-12 border border-blue-400/20"
-                style={{
-                  transform: `rotate(${i * 60}deg) translateY(-100px)`,
-                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
-                }}
-                animate={{
-                  opacity: [0.5, 1, 0.5],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  delay: i * 0.2,
-                  repeat: Infinity,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Animated Gradient Overlay */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-blue-500/5"
-          animate={{
-            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          style={{ backgroundSize: '200% 100%' }}
-        />
-
-        {/* Glowing Accent Lines */}
-        <div className="absolute inset-0">
-          <motion.div
-            className="absolute bottom-0 left-0 right-0 h-[1px]"
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent)'
-            }}
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div className="relative max-w-6xl mx-auto px-4 py-4">
-        <div className="flex justify-between items-center relative">
-          {/* Enhanced Logo/Name section */}
-          <motion.div 
-            className="rounded-lg relative group"
-            whileHover={{ scale: 1.02 }}
-          >
-            <button 
-              onClick={handleHomeClick}
-              className="flex items-center gap-3 py-2 px-4 rounded-lg relative z-10"
-            >
-              <div className="relative">
-                <Logo size={45} />
-                <motion.div
-                  className="absolute -inset-2 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)',
-                  }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                Shreyas Korithiwada
-              </span>
-            </button>
-          </motion.div>
-          
-          {/* Enhanced Navigation items */}
-          <div className="nav-items flex gap-8 items-center relative">
-            {/* Floating indicator */}
-            <motion.div 
-              className="absolute rounded-lg"
-              style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2))',
-                boxShadow: '0 0 20px rgba(59, 130, 246, 0.15)',
-                backdropFilter: 'blur(4px)',
-              }}
-              initial={false}
-              animate={{
-                width: indicatorStyle.width,
-                height: indicatorStyle.height,
-                x: indicatorStyle.left,
-                y: indicatorStyle.top,
-                opacity: indicatorStyle.opacity
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 350,
-                damping: 30
-              }}
-            />
-            
-            {/* Enhanced nav links */}
-            <Link
-              to="/about"
-              data-section="about"
-              className={`relative group py-2 px-4 rounded-lg transition-all duration-300 ${
-                location.pathname === '/about' ? 'text-blue-400' : 'text-gray-300 hover:text-blue-400'
-              }`}
-            >
-              <span className="relative z-10">About</span>
-              <motion.div
-                className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))',
-                }}
-                transition={{ duration: 0.3 }}
+      <div className="max-w-6xl mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center">
+            <Link to="/" onClick={handleHomeClick}>
+              <img
+                src={logoImage || "/placeholder.svg"}
+                alt="Logo"
+                className="h-10 w-auto"
+                style={{ maxHeight: "40px" }}
               />
             </Link>
+          </motion.div>
 
-            {['experience', 'projects', 'contact'].map((item) => (
-              <motion.button 
-                key={item}
-                data-section={item}
-                onClick={() => handleNavigation(item)}
-                className={`relative group py-2 px-4 rounded-lg transition-all duration-300 ${
-                  activeSection === item && location.pathname === '/' 
-                    ? 'text-blue-400' 
-                    : 'text-gray-300 hover:text-blue-400'
+          {/* Close button - shown when menu is open */}
+          {isNavOpen && (
+            <div className="sm:hidden absolute left-1/2 transform -translate-x-2/3 top-1/2 -translate-y-1/2">
+              <button onClick={toggleNav} className="text-white p-2" aria-label="Close menu">
+                <FiX size={24} />
+              </button>
+            </div>
+          )}
+
+          {/* Menu button - shown when menu is closed */}
+          {!isNavOpen && (
+            <div className="sm:hidden fixed right-20 top-4 z-50">
+              <button onClick={toggleNav} className="text-white p-2" aria-label="Open menu">
+                <FiMenu size={24} />
+              </button>
+            </div>
+          )}
+
+          {/* Navigation items */}
+          <div className="flex-1 flex justify-end">
+            <div
+              className={`nav-items relative ${isNavOpen ? "absolute top-0 left-0 right-0 bg-gray-900/95 border-b border-gray-800/50 p-4" : "hidden"} sm:flex sm:items-center sm:gap-8`}
+            >
+              <Link
+                to="/about"
+                onClick={() => {
+                  setIsNavOpen(false)
+                  setActiveSection("")
+                  setIndicatorStyle({
+                    width: 0,
+                    left: 0,
+                    top: 0,
+                    height: 0,
+                    opacity: 0,
+                  })
+                }}
+                className={`block w-full sm:w-auto text-left py-2 px-4 rounded-lg transition-all duration-300 ${
+                  location.pathname === "/about"
+                    ? "text-blue-400 bg-blue-500/10"
+                    : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/5"
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
-                <span className="relative z-10 capitalize">{item}</span>
+                About
+              </Link>
+              {["experience", "projects", "contact"].map((item) => (
+                <motion.button
+                  key={item}
+                  data-section={item}
+                  onClick={() => handleNavigation(item)}
+                  className={`block w-full sm:w-auto text-left py-2 px-4 rounded-lg transition-all duration-300 ${
+                    activeSection === item && location.pathname === "/"
+                      ? "text-blue-400 bg-blue-500/10"
+                      : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/5"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="capitalize">{item}</span>
+                </motion.button>
+              ))}
+
+              {/* Floating indicator (visible only on desktop and homepage) */}
+              {location.pathname === "/" && (
                 <motion.div
-                  className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100"
+                  className="absolute rounded-lg hidden sm:block"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))',
+                    background: "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2))",
+                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.15)",
+                    backdropFilter: "blur(4px)",
                   }}
-                  transition={{ duration: 0.3 }}
+                  initial={false}
+                  animate={{
+                    width: indicatorStyle.width,
+                    height: indicatorStyle.height,
+                    x: indicatorStyle.left,
+                    y: indicatorStyle.top,
+                    opacity: indicatorStyle.opacity,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 350,
+                    damping: 30,
+                  }}
                 />
-              </motion.button>
-            ))}
+              )}
+            </div>
           </div>
         </div>
       </div>
     </motion.nav>
-  );
-};
+  )
+}
 
-export default Navbar; 
+export default Navbar

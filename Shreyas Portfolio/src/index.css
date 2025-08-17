@@ -36,6 +36,7 @@ a, button, input, textarea {
 }
 
 html {
-  scroll-padding-top: 5rem; /* Adjusts scroll position to account for fixed navbar */
+  scroll-padding-top: 5rem;
   scroll-behavior: smooth;
 }
+
