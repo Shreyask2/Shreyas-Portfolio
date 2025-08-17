@@ -35,7 +35,7 @@ const educationData = [
       "Math Fellow",
       "Varsity Tennis",
       "Technology Student Association (TSA)",
-      "Deca",
+      "DECA",
       "Squash",
     ],
     skills: ["HTML", "Computer Science", "Computer-Aided Design (CAD)", "Java", "Python", "CSS", "Engineering", "Project Management"],
